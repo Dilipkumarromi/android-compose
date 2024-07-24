@@ -19,6 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,9 +54,9 @@ fun TextAreaView(){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Name:XYZ", fontSize = 16.sp, modifier = Modifier.padding(16.dp))
-        Text(text = "Age:30",fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+        Text(text = "Age:30",fontSize = 16.sp, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic , modifier = Modifier.padding(16.dp))
         Row (){
-            Text(text = "Gender:Male",fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+            Text(text = "Gender:Male",fontSize = 16.sp, textDecoration = TextDecoration.Underline , modifier = Modifier.padding(16.dp))
             Text(text = "Gender:Female",fontSize = 16.sp, modifier = Modifier.padding(16.dp))
         }
 
