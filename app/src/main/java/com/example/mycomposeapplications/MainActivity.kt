@@ -1,8 +1,11 @@
 package com.example.mycomposeapplications
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Message
 import android.provider.CalendarContract.Colors
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -14,13 +17,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -42,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TextAreaView()
+                    buttonClick()
 
                 }
             }
@@ -50,6 +60,36 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Composable
+fun buttonClick(){
+    var count by remember {
+        mutableIntStateOf((0))
+    }
+    var conText= LocalContext.current
+    Column(
+        Modifier.fillMaxWidth().fillMaxSize(),
+        Arrangement.Center,
+        Alignment.CenterHorizontally
+    ) {
+        androidx.compose.material3.Text(
+            text = "Total Click-$count",
+            style = TextStyle(fontSize = 24.sp)
+        )
+        Button(onClick = {
+
+            myToast(conText , message = "Click button actions")// pass msg context toast
+            count++
+                         }, shape = RoundedCornerShape(8.dp),
+            content = { androidx.compose.material3.Text(
+            text = "Click me"
+        )})
+    }
+
+}
+fun myToast(context: Context,message: String){
+    println("Click-->$message")
+   Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+}
 @Composable
 fun TextAreaView(){
     Column(
@@ -95,7 +135,10 @@ fun SimpleClickableText(){
 fun marginPadding(){
     Text(text = "All side padding",
         // note first padding only padding and second padding for margin
-        modifier = Modifier.padding(16.dp).background(color = Color.White).padding(all = 20.dp)
+        modifier = Modifier
+            .padding(16.dp)
+            .background(color = Color.White)
+            .padding(all = 20.dp)
         )
 
 }
