@@ -2,8 +2,6 @@ package com.example.mycomposeapplications
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Message
-import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -11,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,13 +18,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -34,11 +34,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
@@ -63,26 +63,101 @@ class MainActivity : ComponentActivity() {
 //                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    buttonClick()
-                    Column(modifier = Modifier
-                        .padding(all = 16.dp)
-                        .padding(start = 26.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                        outlineButton()
-
-                        outlineButtonWithText()
-                    }
+                    CustomCard()
 
                 }
             }
         }
     }
 }
+
 @Preview
 @Composable
-fun shapesDesign(){
+fun CustomCard() {
+    Row() {
+        Card(
+            modifier = Modifier
+                .padding(16.dp)
+                .size(120.dp),
+            shape = CutCornerShape(
+                topStartPercent = 50,
+                topEndPercent = 25,
+                bottomStartPercent = 50,
+                bottomEndPercent = 50
+            ),
+            colors = CardDefaults.cardColors(Color(0xFFFA1745))
+        )
+
+        {
+            Box() {
+                Text(
+                    text = "SALE", color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(35.dp)
+                        .padding(top = 19.dp)
+                        .align(Alignment.Center)
+                        .rotate(-45f)
+                )
+                Card(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(5.dp)
+                        .padding(top = 16.dp)
+                        .size(16.dp),
+
+                    shape = CircleShape
+                ) {
+
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(16.dp)
+                .size(120.dp),
+            shape = CutCornerShape(
+                topStartPercent = 50,
+                topEndPercent = 50,
+                bottomStartPercent = 50,
+                bottomEndPercent = 50
+            ),
+            colors = CardDefaults.cardColors(Color(0xFFFA1745))
+        )
+
+        {
+            Box() {
+                Text(
+                    text = "50%\nOFF", color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .padding(5.dp)
+                        .align(Alignment.Center)
+                )
+                Card(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(15.dp)
+                        .padding(start = 10.dp)
+                        .size(16.dp),
+
+                    shape = CircleShape
+                ) {
+
+                }
+            }
+        }
+
+    }
+}
+
+@Preview
+@Composable
+fun shapesDesign() {
     Column(
         modifier = Modifier.padding(16.dp)// for all side space
     ) {
@@ -97,38 +172,47 @@ fun shapesDesign(){
 
         Card(
             shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+            modifier = Modifier
+                .size(100.dp)
+                .padding(top = 10.dp),
         ) {
 
         }
 
         Card(
             shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+            modifier = Modifier
+                .size(100.dp)
+                .padding(top = 10.dp),
         ) {
 
         }
         Card(
             shape = CircleShape,
-            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+            modifier = Modifier
+                .size(100.dp)
+                .padding(top = 10.dp),
         ) {
 
         }
 
         Card(
             shape = AbsoluteCutCornerShape(16.dp),
-            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+            modifier = Modifier
+                .size(100.dp)
+                .padding(top = 10.dp),
         ) {
 
         }
     }
 }
+
 @Composable
-fun buttonClick(){
+fun buttonClick() {
     var count by remember {
         mutableIntStateOf((0))
     }
-    var conText= LocalContext.current
+    var conText = LocalContext.current
     Column(
         Modifier
             .fillMaxWidth()
@@ -142,44 +226,50 @@ fun buttonClick(){
         )
         Button(onClick = {
 
-            myToast(conText , message = "Click button actions")// pass msg context toast
+            myToast(conText, message = "Click button actions")// pass msg context toast
             count++
-                         }, shape = RoundedCornerShape(8.dp),
-            content = { androidx.compose.material3.Text(
-            text = "Click me"
-        )})
+        }, shape = RoundedCornerShape(8.dp),
+            content = {
+                androidx.compose.material3.Text(
+                    text = "Click me"
+                )
+            })
     }
 
 }
 
 @Composable
-fun outlineButton(){
-    OutlinedButton(onClick = { /*TODO*/ },
-        border= BorderStroke(2.dp, Color.Black),
+fun outlineButton() {
+    OutlinedButton(
+        onClick = { /*TODO*/ },
+        border = BorderStroke(2.dp, Color.Black),
         shape = CircleShape,
         modifier = Modifier
             .size(200.dp)
 
     ) {
-        Icon(imageVector =Icons.Default.Add , contentDescription = "")
+        Icon(imageVector = Icons.Default.Add, contentDescription = "")
     }
 }
 
 @Composable
-fun outlineButtonWithText(){
-    OutlinedButton(onClick = { /*TODO*/ },
+fun outlineButtonWithText() {
+    OutlinedButton(
+        onClick = { /*TODO*/ },
         enabled = true,
-        border = BorderStroke(1.dp,Color.Blue)
+        border = BorderStroke(1.dp, Color.Blue)
     ) {
         androidx.compose.material3.Text(text = "Click me")
     }
 }
-fun myToast(context: Context,message: String){
+
+fun myToast(context: Context, message: String) {
     println("Click-->$message")
-   Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
+
 @Composable
-fun TextAreaView(){
+fun TextAreaView() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -192,12 +282,23 @@ fun TextAreaView(){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Name:XYZ", fontSize = 16.sp, modifier = Modifier.padding(16.dp))
-        Text(text = "Age:30",fontSize = 16.sp, fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic , modifier = Modifier.padding(16.dp))
+        Text(
+            text = "Age:30",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Italic,
+            modifier = Modifier.padding(16.dp)
+        )
         SimpleClickableText()
         marginPadding()
-        Row (){
-            Text(text = "Gender:Male",fontSize = 16.sp, textDecoration = TextDecoration.Underline , modifier = Modifier.padding(16.dp))
-            Text(text = "Gender:Female",fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+        Row() {
+            Text(
+                text = "Gender:Male",
+                fontSize = 16.sp,
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.padding(16.dp)
+            )
+            Text(text = "Gender:Female", fontSize = 16.sp, modifier = Modifier.padding(16.dp))
         }
 
     }
@@ -206,28 +307,30 @@ fun TextAreaView(){
 }
 
 @Composable
-fun SimpleClickableText(){
+fun SimpleClickableText() {
     ClickableText(
-        text = AnnotatedString("Hi Baby") ,
+        text = AnnotatedString("Hi Baby"),
         onClick = {
-             Log.d("click-me","Amngo")
+            Log.d("click-me", "Amngo")
         },
-    style = TextStyle(
-        color = Color.Red,
-        fontSize = 30.sp,
-        fontFamily = FontFamily.Cursive
-    )
+        style = TextStyle(
+            color = Color.Red,
+            fontSize = 30.sp,
+            fontFamily = FontFamily.Cursive
+        )
     )
 }
+
 @Composable
-fun marginPadding(){
-    Text(text = "All side padding",
+fun marginPadding() {
+    Text(
+        text = "All side padding",
         // note first padding only padding and second padding for margin
         modifier = Modifier
             .padding(16.dp)
             .background(color = Color.White)
             .padding(all = 20.dp)
-        )
+    )
 
 }
 
