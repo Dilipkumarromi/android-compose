@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,10 +16,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.AbsoluteCutCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -49,17 +60,69 @@ class MainActivity : ComponentActivity() {
             MyComposeApplicationsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+//                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    buttonClick()
+//                    buttonClick()
+                    Column(modifier = Modifier
+                        .padding(all = 16.dp)
+                        .padding(start = 26.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                        outlineButton()
+
+                        outlineButtonWithText()
+                    }
 
                 }
             }
         }
     }
 }
+@Preview
+@Composable
+fun shapesDesign(){
+    Column(
+        modifier = Modifier.padding(16.dp)// for all side space
+    ) {
+        Card(
+            shape = RectangleShape,
+            modifier = Modifier.size(100.dp),
+            border = BorderStroke(2.dp, color = Color.Red),
 
+            ) {
+
+        }
+
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+        ) {
+
+        }
+
+        Card(
+            shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+        ) {
+
+        }
+        Card(
+            shape = CircleShape,
+            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+        ) {
+
+        }
+
+        Card(
+            shape = AbsoluteCutCornerShape(16.dp),
+            modifier = Modifier.size(100.dp).padding(top = 10.dp),
+        ) {
+
+        }
+    }
+}
 @Composable
 fun buttonClick(){
     var count by remember {
@@ -67,7 +130,9 @@ fun buttonClick(){
     }
     var conText= LocalContext.current
     Column(
-        Modifier.fillMaxWidth().fillMaxSize(),
+        Modifier
+            .fillMaxWidth()
+            .fillMaxSize(),
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
@@ -85,6 +150,29 @@ fun buttonClick(){
         )})
     }
 
+}
+
+@Composable
+fun outlineButton(){
+    OutlinedButton(onClick = { /*TODO*/ },
+        border= BorderStroke(2.dp, Color.Black),
+        shape = CircleShape,
+        modifier = Modifier
+            .size(200.dp)
+
+    ) {
+        Icon(imageVector =Icons.Default.Add , contentDescription = "")
+    }
+}
+
+@Composable
+fun outlineButtonWithText(){
+    OutlinedButton(onClick = { /*TODO*/ },
+        enabled = true,
+        border = BorderStroke(1.dp,Color.Blue)
+    ) {
+        androidx.compose.material3.Text(text = "Click me")
+    }
 }
 fun myToast(context: Context,message: String){
     println("Click-->$message")
