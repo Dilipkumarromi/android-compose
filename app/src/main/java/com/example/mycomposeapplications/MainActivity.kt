@@ -3,11 +3,14 @@ package com.example.mycomposeapplications
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.RoundedCorner
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,11 +19,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -38,10 +43,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -63,12 +71,60 @@ class MainActivity : ComponentActivity() {
 //                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CustomCard()
+                    Column(modifier = Modifier
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState(),true)
+                        ) {
+                        ImagesStyles()
+                        RoundedCornerImages()
+                        CircleImage()
+                        CircleImage()
+                        CircleImage()
+                        CircleImage()
+                    }
+
 
                 }
             }
         }
     }
+}
+@Preview
+@Composable
+fun ImagesStyles(){
+    Image(painter = painterResource(id = R.drawable.profile_image),
+        contentScale = ContentScale.Crop,
+        alpha = 0.5f,
+        modifier = Modifier.size(200.dp),
+        contentDescription = "")
+}
+
+@Preview
+@Composable
+fun RoundedCornerImages() {
+    Image(painter = painterResource(id = R.drawable.profile_image),
+        contentScale = ContentScale.Crop,
+        alpha = 0.5f,
+        modifier = Modifier
+            .size(200.dp)
+            .padding(16.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .border(4.dp, Color.Red, RoundedCornerShape(4.dp)),
+        contentDescription = "")
+}
+
+@Preview
+@Composable
+fun CircleImage() {
+    Image(painter = painterResource(id = R.drawable.profile_image),
+        contentScale = ContentScale.Crop,
+        alpha = 0.5f,
+        modifier = Modifier
+            .size(200.dp)
+            .padding(16.dp)
+            .clip(CircleShape)
+            .border(4.dp, Color.Yellow, RoundedCornerShape(4.dp)),
+        contentDescription = "")
 }
 
 @Preview
