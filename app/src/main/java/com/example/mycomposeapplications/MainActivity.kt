@@ -30,6 +30,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mycomposeapplications.dashboard.buttonNavigations
+import com.example.mycomposeapplications.login.loginScreen
 import com.example.mycomposeapplications.ui.theme.MyComposeApplicationsTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,8 +44,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TextAreaView()
-
+//                    loginScreen();
+                    buttonNavigations();
                 }
             }
         }
@@ -95,7 +97,10 @@ fun SimpleClickableText(){
 fun marginPadding(){
     Text(text = "All side padding",
         // note first padding only padding and second padding for margin
-        modifier = Modifier.padding(16.dp).background(color = Color.White).padding(all = 20.dp)
+        modifier = Modifier
+            .padding(16.dp)
+            .background(color = Color.White)
+            .padding(all = 20.dp)
         )
 
 }
